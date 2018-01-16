@@ -26,12 +26,12 @@ public class BigLottery extends JFrame {
 
 
 	public void initialize() {
-		frame = new JFrame("¤j¼Ö³z");
+		frame = new JFrame("å¤§æ¨‚é€");
 		frame.setBounds(500, 200, 600, 800);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//frame.getContentPane().setLayout(new BorderLayout());
-		JLabel lblNewLabel = new JLabel("½Ğ¿ï¾Ü¤»­Ó¸¹½X");
-		lblNewLabel.setFont(new Font("·L³n¥¿¶ÂÅé", Font.PLAIN, 15));
+		JLabel lblNewLabel = new JLabel("è«‹é¸æ“‡å…­å€‹è™Ÿç¢¼");
+		lblNewLabel.setFont(new Font("å¾®è»Ÿæ­£é»‘é«”", Font.PLAIN, 15));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		frame.getContentPane().add(lblNewLabel,BorderLayout.NORTH);
 		
@@ -42,7 +42,7 @@ public class BigLottery extends JFrame {
 		frame.getContentPane().add(numPanel,BorderLayout.CENTER);
 		numPanel.setLayout(new GridLayout(7, 7, 2, 2));
 		
-		//¼Æ¦r«ö¶s;
+		//æ•¸å­—æŒ‰éˆ•;
         
 		 numBtn = new JButton[49];
 		 
@@ -65,13 +65,13 @@ public class BigLottery extends JFrame {
 			 numPanel.add(numBtn[i]) ;
 			 
 		 }
-	    /*¿ï¸¹°Ï*/
+	    /*é¸è™Ÿå€*/
 		JPanel selectedPane = new JPanel();
-		//¥\¯àÁä³]©w
-		JLabel selectedLabel = new JLabel("¤w¿ï¸¹½X");
+		//åŠŸèƒ½éµè¨­å®š
+		JLabel selectedLabel = new JLabel("å·²é¸è™Ÿç¢¼");
 		selectedLabel.setPreferredSize(new Dimension(100,30));
 		selectedLabel.setFont(new Font("PROGGY", Font.PLAIN, 20));
-		/*-------------¤v¿ï¸¹½X°Ï---------------*/
+		/*-------------å·±é¸è™Ÿç¢¼å€---------------*/
 		selectedNumLbl = new JLabel[7];
 		frame.getContentPane().add(selectedPane,BorderLayout.SOUTH);
 		selectedPane.setLayout(new FlowLayout());
@@ -86,26 +86,26 @@ public class BigLottery extends JFrame {
 			selectedNumLbl[j].setOpaque(true);
 			
 		selectedPane.add(selectedNumLbl[j]);
-		selectedNumLbl[j].setFont(new Font("·L³n¥¿¶ÂÅé", Font.PLAIN, 20));
+		selectedNumLbl[j].setFont(new Font("å¾®è»Ÿæ­£é»‘é«”", Font.PLAIN, 20));
 		
 		}
 		
 		
-		/*-------------¤Uª`°Ï---------------*/
+		/*-------------ä¸‹æ³¨å€---------------*/
 		JPanel functionPane = new JPanel();
 		functionPane.setLayout(new FlowLayout());
-		JButton autoBtn = new JButton("¹q¸£¿ï¸¹");
+		JButton autoBtn = new JButton("é›»è…¦é¸è™Ÿ");
 		autoBtn.setPreferredSize(new Dimension(190,30));
-		autoBtn.setFont(new Font("·L³n¥¿¶ÂÅé", Font.PLAIN, 20));
+		autoBtn.setFont(new Font("å¾®è»Ÿæ­£é»‘é«”", Font.PLAIN, 20));
 		autoBtn.addActionListener(new autoListener());
 		
-		JButton addBtn = new JButton("½T©w¥[¤J");
+		JButton addBtn = new JButton("ç¢ºå®šåŠ å…¥");
 		addBtn.setPreferredSize(new Dimension(190,30));
-		addBtn.setFont(new Font("·L³n¥¿¶ÂÅé", Font.PLAIN, 20));
+		addBtn.setFont(new Font("å¾®è»Ÿæ­£é»‘é«”", Font.PLAIN, 20));
 		addBtn.addActionListener(new appendNumsListener());
-		JButton cancelBtn = new JButton("¨ú®ø­«¿ï");
+		JButton cancelBtn = new JButton("å–æ¶ˆé‡é¸");
 		cancelBtn.setPreferredSize(new Dimension(190,30));
-		cancelBtn.setFont(new Font("·L³n¥¿¶ÂÅé", Font.PLAIN, 20));
+		cancelBtn.setFont(new Font("å¾®è»Ÿæ­£é»‘é«”", Font.PLAIN, 20));
 		cancelBtn.addActionListener(new cancelListener());
 		
 		selectedPane.add(functionPane);
@@ -113,13 +113,13 @@ public class BigLottery extends JFrame {
 		functionPane.add(addBtn);
 		functionPane.add(cancelBtn);
 		
-		/*-------------¶}¼ú°Ï---------------*/
+		/*-------------é–‹çå€---------------*/
 		JPanel lotteryPane = new JPanel();
 		lotteryPane.setLayout(new FlowLayout());
-	    JLabel lottoNumLbl = new JLabel("¶}¼ú¸¹½X");
-		JButton lotteryBtn =new JButton("¶}¼ú");
-		lottoNumLbl.setFont(new Font("·L³n¥¿¶ÂÅé", Font.PLAIN, 20));
-		lotteryBtn.setFont(new Font("·L³n¥¿¶ÂÅé", Font.PLAIN, 30));
+	    JLabel lottoNumLbl = new JLabel("é–‹çè™Ÿç¢¼");
+		JButton lotteryBtn =new JButton("é–‹ç");
+		lottoNumLbl.setFont(new Font("å¾®è»Ÿæ­£é»‘é«”", Font.PLAIN, 20));
+		lotteryBtn.setFont(new Font("å¾®è»Ÿæ­£é»‘é«”", Font.PLAIN, 30));
 		lotteryPane.add(lottoNumLbl);
 		
 		 lotteryNum = new JLabel [7];
@@ -127,12 +127,12 @@ public class BigLottery extends JFrame {
 		for(int k = 0; k < 7; ++k){
 			lotteryNum[k] = new JLabel("");  
 			lotteryNum[k].setPreferredSize(new Dimension(50,30));
-			lotteryNum[k].setFont(new Font("·L³n¥¿¶ÂÅé", Font.BOLD, 19));
+			lotteryNum[k].setFont(new Font("å¾®è»Ÿæ­£é»‘é«”", Font.BOLD, 19));
 			lotteryNum[k].setBackground(new Color(211,211,211));
 			lotteryNum[k].setOpaque(true);
 			
 			lotteryPane.add(lotteryNum[k]) ;}
-		//¯S§O¸¹
+		//ç‰¹åˆ¥è™Ÿ
 		lotteryPane.add(lotteryNum[6]);
 		
 		lotteryNum[6].setBackground(new Color(211,188,211));
@@ -141,31 +141,31 @@ public class BigLottery extends JFrame {
 		lotteryPane.add(lotteryBtn);
 		lotteryBtn.addActionListener(new lotteryListener());
 		
-		/*-------------¤½§i°Ï---------------*/
+		/*-------------å…¬å‘Šå€---------------*/
 		JPanel announcePane =new JPanel();
 		numsetText=new JTextArea(9, 20);
 		
 		JScrollPane annouScrPane =new JScrollPane(numsetText);
 		numsetText.setEditable(false);
-		JTextArea seledTextArea=new JTextArea(" \n"+"¤v\n"+"¿ï\n"+"¸¹\n"+"½X\n"+"²Õ\n");
+		JTextArea seledTextArea=new JTextArea(" \n"+"å·±\n"+"é¸\n"+"è™Ÿ\n"+"ç¢¼\n"+"çµ„\n");
 		seledTextArea.setBackground(new Color(211,211,211));
 		seledTextArea.setEditable(false);
-		seledTextArea.setFont(new Font("·L³n¥¿¶ÂÅé", Font.LAYOUT_NO_LIMIT_CONTEXT, 19));
+		seledTextArea.setFont(new Font("å¾®è»Ÿæ­£é»‘é«”", Font.LAYOUT_NO_LIMIT_CONTEXT, 19));
 		announcePane.setLayout(new FlowLayout());
 		announcePane.setBackground(new Color(211,211,211));
 		announcePane.setPreferredSize(new Dimension(600,200));
 		JTextArea announceText=new JTextArea(
-				"ÀY¼ú :¢µ­Ó¸¹½X§¹¥ş¬Û¦PªÌ\n"+
-		        "¶L¼ú :¥ô¢´­Ó¸¹½X¡Ï¯S§O¸¹¬Û¦PªÌ\n"+
-		        "°Ñ¼ú:¥ô¢´­Ó¸¹½X¬Û¦PªÌ\n"+
-		        "¸v¼ú :¥ô¢³­Ó¸¹½X¡Ï¯S§O¸¹¬Û¦PªÌ\n"+
-		        "¥î¼ú :¥ô¢³­Ó¸¹½X¬Û¦PªÌ\n"+
-		        "³°¼ú :¥ô¢²­Ó¸¹½X¡Ï¯S§O¸¹¬Û¦PªÌ\n"+
-		        "¬m¼ú :¥ô¢±­Ó¸¹½X¡Ï¯S§O¸¹¬Û¦PªÌ\n"+
-		        "´¶¼ú :¥ô3­Ó¸¹½X¬Û¦PªÌ\n"
+				"é ­ç :ï¼–å€‹è™Ÿç¢¼å®Œå…¨ç›¸åŒè€…\n"+
+		        "è²³ç :ä»»ï¼•å€‹è™Ÿç¢¼ï¼‹ç‰¹åˆ¥è™Ÿç›¸åŒè€…\n"+
+		        "åƒç:ä»»ï¼•å€‹è™Ÿç¢¼ç›¸åŒè€…\n"+
+		        "è‚†ç :ä»»ï¼”å€‹è™Ÿç¢¼ï¼‹ç‰¹åˆ¥è™Ÿç›¸åŒè€…\n"+
+		        "ä¼ç :ä»»ï¼”å€‹è™Ÿç¢¼ç›¸åŒè€…\n"+
+		        "é™¸ç :ä»»ï¼“å€‹è™Ÿç¢¼ï¼‹ç‰¹åˆ¥è™Ÿç›¸åŒè€…\n"+
+		        "æŸ’ç :ä»»ï¼’å€‹è™Ÿç¢¼ï¼‹ç‰¹åˆ¥è™Ÿç›¸åŒè€…\n"+
+		        "æ™®ç :ä»»3å€‹è™Ÿç¢¼ç›¸åŒè€…\n"
 				);
 		announceText.setBackground(Color.white);
-		announceText.setFont(new Font("·L³n¥¿¶ÂÅé", Font.LAYOUT_NO_LIMIT_CONTEXT, 15));
+		announceText.setFont(new Font("å¾®è»Ÿæ­£é»‘é«”", Font.LAYOUT_NO_LIMIT_CONTEXT, 15));
 		announceText.setWrapStyleWord(true);
 		announceText.setEditable(false);
 		selectedPane.add(announcePane);
@@ -174,30 +174,30 @@ public class BigLottery extends JFrame {
 		announcePane.add(seledTextArea);	
 		
 		numsetText.setBackground(Color.white);
-		numsetText.setFont(new Font("·L³n¥¿¶ÂÅé", Font.ITALIC, 15));
+		numsetText.setFont(new Font("å¾®è»Ÿæ­£é»‘é«”", Font.ITALIC, 15));
 		announcePane.add(annouScrPane);
 		//annouScrPane.add(numsetText);
 			
-		/*-------------¹ï¼ú°Ï---------------*/
+		/*-------------å°çå€---------------*/
 		JPanel checkPane = new JPanel();  
 		checkPane.setLayout(new FlowLayout());
 		checkPane.setBackground(new Color(180,180,180)); 
 		selectedPane.add(checkPane);
 		checkPane.setPreferredSize(new Dimension(600,200));
 		
-		JButton delBtn = new JButton("§R°£¤@²Õ");
+		JButton delBtn = new JButton("åˆªé™¤ä¸€çµ„");
 		delBtn.setPreferredSize(new Dimension(190,30));
-		delBtn.setFont(new Font("·L³n¥¿¶ÂÅé", Font.PLAIN, 20));		
+		delBtn.setFont(new Font("å¾®è»Ÿæ­£é»‘é«”", Font.PLAIN, 20));		
 		delBtn.addActionListener(new lineCancelListener());
 		
-		JButton delABtn = new JButton("¥ş³¡§R°£");
+		JButton delABtn = new JButton("å…¨éƒ¨åˆªé™¤");
 		delABtn.setPreferredSize(new Dimension(190,30));
-		delABtn.setFont(new Font("·L³n¥¿¶ÂÅé", Font.PLAIN, 20));
+		delABtn.setFont(new Font("å¾®è»Ÿæ­£é»‘é«”", Font.PLAIN, 20));
 		delABtn.addActionListener(new allCancelListener());
 		
-		JButton checkBtn = new JButton("¹ï¼ú");
+		JButton checkBtn = new JButton("å°ç");
 		checkBtn.setPreferredSize(new Dimension(190,30));
-		checkBtn.setFont(new Font("·L³n¥¿¶ÂÅé", Font.PLAIN, 20));
+		checkBtn.setFont(new Font("å¾®è»Ÿæ­£é»‘é«”", Font.PLAIN, 20));
 		checkBtn.addActionListener(new checkListener());
 		
 		checkPane.add(delBtn);
@@ -280,7 +280,7 @@ public class BigLottery extends JFrame {
 			  }//if (selectedNumLbl[5].getText()=="") end
 			  else 
 			  {
-				  JOptionPane.showMessageDialog(null, "¤w¸g¿ï¤»­Ó¸¹½X¤F","(¡ó¡Å¡ó)",0);
+				  JOptionPane.showMessageDialog(null, "å·²ç¶“é¸å…­å€‹è™Ÿç¢¼äº†","(âŠ™ËâŠ™)",0);
 			  }
 		  }//actionPerformed end
 		 }//ActionListener End
@@ -389,7 +389,7 @@ public class BigLottery extends JFrame {
 												  numBtn[m].setBackground(new Color(220 ,220 ,220));
 												  }//for end
 												  Integer[] numPrint = new Integer[set2.size()];
-												  //²£¥Í¤»­Ó¶Ã¼Æ
+												  //ç”¢ç”Ÿå…­å€‹äº‚æ•¸
 												  do {	   				   
 													randNum = new Random().nextInt(49)+1;
 											        set.add(randNum);
@@ -398,15 +398,15 @@ public class BigLottery extends JFrame {
 												  set2.addAll(set);
 												  numPrint = set2.toArray(numPrint);// do while end
 												  
-												  //¶ñ¤J¹q¸£¿ï¸¹¼Æ¦r;²Ä¤»­Ó¸¹½X­n¥[ªÅ¥ÕÁä
+												  //å¡«å…¥é›»è…¦é¸è™Ÿæ•¸å­—;ç¬¬å…­å€‹è™Ÿç¢¼è¦åŠ ç©ºç™½éµ
 												  for(int k=0;k<6;k++) {
-													  //­Ó¦ì¼Æ¦r¸É0
+													  //å€‹ä½æ•¸å­—è£œ0
 													  if (numPrint[k]<10)
 													  selectedNumLbl[k].setText("0"+numPrint[k]+" ");
 													  else {
 														  selectedNumLbl[k].setText("" + numPrint[k] +" " ) ; 		  
 													  }
-													  //§ïÅÜ«ö¶sÃC¦âÅã¥Ü¹q¸£¿ï¸¹		  
+													  //æ”¹è®ŠæŒ‰éˆ•é¡è‰²é¡¯ç¤ºé›»è…¦é¸è™Ÿ		  
 													  numBtn[numPrint[k]-1].setBackground(new Color(0 ,255 ,127));
 													  
 												    }//for end
@@ -438,7 +438,7 @@ public class BigLottery extends JFrame {
 		    numsetText.append(selectedNumLbl[4].getText().toString()+"  ");
 		    numsetText.append(selectedNumLbl[5].getText().toString()+"\n");
 		    
-		    numsetText.setFont(new Font("·L³n¥¿¶ÂÅé", Font.BOLD, 15));
+		    numsetText.setFont(new Font("å¾®è»Ÿæ­£é»‘é«”", Font.BOLD, 15));
 		    for(int i=0;i<6;i++) {
 		    selectedNumLbl[i].setText("");
 		    }
@@ -446,7 +446,7 @@ public class BigLottery extends JFrame {
 		    	numBtn[j].setBackground(new Color(220 ,220 ,220));
 		    }
 		   }//if end
-			  else {JOptionPane.showMessageDialog(null, "½Ğ¿ï¾Ü¤»­Ó¸¹½X","¢¡(¢£¡º¢¢)¢~", 0);}
+			  else {JOptionPane.showMessageDialog(null, "è«‹é¸æ“‡å…­å€‹è™Ÿç¢¼","â•®(â•¯â—‡â•°)â•­", 0);}
 		  }//actionPerformed end
 		 }//ActionListener End
 	
@@ -556,7 +556,7 @@ public class BigLottery extends JFrame {
 				  			  numBtn[m].setBackground(new Color(220 ,220 ,220));
 				  			  }
 				  			  Integer[] numPrint = new Integer[set2.size()];
-				  			  //²£¥Í¤C­Ó¶Ã¼Æ
+				  			  //ç”¢ç”Ÿä¸ƒå€‹äº‚æ•¸
 				  			  do {	   				   
 				  				randLottoNum = new Random().nextInt(49)+1;
 				                  set.add(randLottoNum);
@@ -565,16 +565,16 @@ public class BigLottery extends JFrame {
 				  			  //set2.addAll(set);
 				  			  numPrint = set.toArray(numPrint);
 				  			  
-				  			  //¶ñ¤J¹q¸£¿ï¸¹¼Æ¦r
+				  			  //å¡«å…¥é›»è…¦é¸è™Ÿæ•¸å­—
 				  			  for(int k=0;k<7;k++) {
-				  				  //­Ó¦ì¼Æ¦r¸É0
+				  				  //å€‹ä½æ•¸å­—è£œ0
 				  				  if (numPrint[k]<10)
 				  					  
 				  				      lotteryNum[k].setText("0"+numPrint[k]);
 				  				  else {
 				  					  lotteryNum[k].setText("" + numPrint[k]  ) ; 		  
 				  				  }
-				  				  //§ïÅÜ«ö¶sÃC¦âÅã¥Ü¹q¸£¿ï¸¹		  
+				  				  //æ”¹è®ŠæŒ‰éˆ•é¡è‰²é¡¯ç¤ºé›»è…¦é¸è™Ÿ		  
 				  				  numBtn[numPrint[k]-1].setBackground(new Color(255 ,106 ,106));
 				  				  numBtn[numPrint[6]-1].setBackground(new Color(255 ,130 ,71));
 				  			    }//for end
@@ -597,99 +597,99 @@ public class BigLottery extends JFrame {
 		         
 			    ArrayList<String> lotteryList = new ArrayList<String>();
 			    
-			    String[] lines = numsetText.getText().split("\n");//³v¦æÅª¨útextarea
+			    String[] lines = numsetText.getText().split("\n");//é€è¡Œè®€å–textarea
 			    String[] pickedNumList= new String[6];
 			    int starNum ;
-		        for(int i=0;i<7;i++) {//¸ü¤J¶}¼ú¸¹
+		        for(int i=0;i<7;i++) {//è¼‰å…¥é–‹çè™Ÿ
 				    lotteryList.add(lotteryNum[i].getText().toString());
 				    }
-		        //½Æ»s¶}¼ú¸¹
+		        //è¤‡è£½é–‹çè™Ÿ
 		        ArrayList<String> lotteryList2 = new ArrayList<String>(lotteryList);
-		        //¯S§O¸¹arraylist
+		        //ç‰¹åˆ¥è™Ÿarraylist
 		        ArrayList<String> speList = new ArrayList<String>();
-		        //¸ü¤J¯S§O¸¹
+		        //è¼‰å…¥ç‰¹åˆ¥è™Ÿ
 		        speList.add(lotteryList.toArray()[6].toString());
-		        //½Æ»s¯S§O¸¹
+		        //è¤‡è£½ç‰¹åˆ¥è™Ÿ
 		        ArrayList<String> speList2 = new ArrayList<String>(speList);
-                //±N¤w¿ï¸¹½X¥[¤JArray pickedNumList
+                //å°‡å·²é¸è™Ÿç¢¼åŠ å…¥Array pickedNumList
 		        int betNum=numsetText.getLineCount();
 			    for(int j=0;j<betNum-1;j++) {
-			    	//¸ü¤J¦Û¿ï¸¹½X
+			    	//è¼‰å…¥è‡ªé¸è™Ÿç¢¼
 			    	pickedNumList=lines[j].toString().split(" ");
 			    
 			    				    			   
-				//½Æ»s¶}¼ú¸¹,¦Û¿ï¸¹,¨ú¥æ¶°	    			    	    
+				//è¤‡è£½é–‹çè™Ÿ,è‡ªé¸è™Ÿ,å–äº¤é›†	    			    	    
 			    lotteryList2.retainAll(Arrays.asList(pickedNumList));	
-			    //¯S§O¸¹,¦Û¿ï¸¹,¨ú¥æ¶°	
+			    //ç‰¹åˆ¥è™Ÿ,è‡ªé¸è™Ÿ,å–äº¤é›†	
 			    speList2.retainAll(Arrays.asList(pickedNumList));
-			    //ºâ¤¤ªºÁû¼Æ
+			    //ç®—ä¸­çš„é¡†æ•¸
 			    starNum=lotteryList2.size();
-			    //§PÂ_¬O§_¦³¯S§O¸¹¨Ã´£¥Ü°T®§
+			    //åˆ¤æ–·æ˜¯å¦æœ‰ç‰¹åˆ¥è™Ÿä¸¦æç¤ºè¨Šæ¯
 			    
 			    switch(starNum)
 			    {case 0:
-		        JOptionPane.showMessageDialog(null, lines[j].toString()+"\n³o¤@ª`¨S¤¤","¢~(¡Ç¡ä¡ä¡Ç)¢¡", 0);
-		         //lotteryList2¶}¼ú¸¹ÅÜ¤¤¼ú¸¹,©Ò¥H­n¦A½Æ»s¤@¦¸lotteryList¦^´_¦¨¶}¼ú¸¹
+		        JOptionPane.showMessageDialog(null, lines[j].toString()+"\né€™ä¸€æ³¨æ²’ä¸­","â•­(ï¹Šâˆ©âˆ©ï¹Š)â•®", 0);
+		         //lotteryList2é–‹çè™Ÿè®Šä¸­çè™Ÿ,æ‰€ä»¥è¦å†è¤‡è£½ä¸€æ¬¡lotteryListå›å¾©æˆé–‹çè™Ÿ
 		        lotteryList2 = new ArrayList<String>(lotteryList);
-		        //¦^´_¯S§O¸¹
+		        //å›å¾©ç‰¹åˆ¥è™Ÿ
 		        speList2 = new ArrayList<String>(speList);
 		        break;
 			    
 			    case 1:
 			    	if(speList2.size()!=0)
-			        {JOptionPane.showMessageDialog(null, lines[j].toString()+"\n³o¤@ª`¤¤¯S§O¸¹"+speList2+"¨S¦³¼úª÷","¡× ¡×+", 0);}
+			        {JOptionPane.showMessageDialog(null, lines[j].toString()+"\né€™ä¸€æ³¨ä¸­ç‰¹åˆ¥è™Ÿ"+speList2+"æ²’æœ‰çé‡‘","ï¼ ï¼+", 0);}
 			    	else
-			    	{JOptionPane.showMessageDialog(null, lines[j].toString()+"\n³o¤@ª`¤¤¤@¬P"+lotteryList2+"¨S¦³¼úª÷","¡× ¡×+", 0);}
-			         //lotteryList2¶}¼ú¸¹ÅÜ¤¤¼ú¸¹,©Ò¥H­n¦A½Æ»s¤@¦¸lotteryList¦^´_¦¨¶}¼ú¸¹
+			    	{JOptionPane.showMessageDialog(null, lines[j].toString()+"\né€™ä¸€æ³¨ä¸­ä¸€æ˜Ÿ"+lotteryList2+"æ²’æœ‰çé‡‘","ï¼ ï¼+", 0);}
+			         //lotteryList2é–‹çè™Ÿè®Šä¸­çè™Ÿ,æ‰€ä»¥è¦å†è¤‡è£½ä¸€æ¬¡lotteryListå›å¾©æˆé–‹çè™Ÿ
 			        lotteryList2 = new ArrayList<String>(lotteryList);
-			        //¦^´_¯S§O¸¹
+			        //å›å¾©ç‰¹åˆ¥è™Ÿ
 			        speList2 = new ArrayList<String>(speList);
 			        break;
 			     
 			    case 2:
 			    	if(speList2.size()!=0)
-			        {JOptionPane.showMessageDialog(null, lines[j].toString()+"\n³o¤@ª`¤¤¤@¬P©M¯S§O¸¹"+lotteryList2+"¨S¦³¼úª÷","¢¢¡]¡«¡¼¡¬¡^¢£", 0);}
+			        {JOptionPane.showMessageDialog(null, lines[j].toString()+"\né€™ä¸€æ³¨ä¸­ä¸€æ˜Ÿå’Œç‰¹åˆ¥è™Ÿ"+lotteryList2+"æ²’æœ‰çé‡‘","â•°ï¼ˆâ€µâ–¡â€²ï¼‰â•¯", 0);}
 			    	else
-			    	{JOptionPane.showMessageDialog(null, lines[j].toString()+"\n³o¤@ª`¤¤¤G¬P"+lotteryList2+"¨S¦³¼úª÷","¢¢¡]¡«¡¼¡¬¡^¢£", 0);}
-			         //lotteryList2¶}¼ú¸¹ÅÜ¤¤¼ú¸¹,©Ò¥H­n¦A½Æ»s¤@¦¸lotteryList¦^´_¦¨¶}¼ú¸¹
+			    	{JOptionPane.showMessageDialog(null, lines[j].toString()+"\né€™ä¸€æ³¨ä¸­äºŒæ˜Ÿ"+lotteryList2+"æ²’æœ‰çé‡‘","â•°ï¼ˆâ€µâ–¡â€²ï¼‰â•¯", 0);}
+			         //lotteryList2é–‹çè™Ÿè®Šä¸­çè™Ÿ,æ‰€ä»¥è¦å†è¤‡è£½ä¸€æ¬¡lotteryListå›å¾©æˆé–‹çè™Ÿ
 			        lotteryList2 = new ArrayList<String>(lotteryList);
-			        //¦^´_¯S§O¸¹
+			        //å›å¾©ç‰¹åˆ¥è™Ÿ
 			        speList2 = new ArrayList<String>(speList);
 			        break;
 			    case 3:
 			    	if(speList2.size()!=0)
-			        {JOptionPane.showMessageDialog(null, lines[j].toString()+"\n³o¤@ª`¤¤¤G¬P©M¯S§O¸¹"+lotteryList2+"¬m¼ú NT$400","(¡Ã¡¾¡Ã)~* ", 1);}
+			        {JOptionPane.showMessageDialog(null, lines[j].toString()+"\né€™ä¸€æ³¨ä¸­äºŒæ˜Ÿå’Œç‰¹åˆ¥è™Ÿ"+lotteryList2+"æŸ’ç NT$400","(ï¿£â–½ï¿£)~* ", 1);}
 			    	else
-			    	{JOptionPane.showMessageDialog(null, lines[j].toString()+"\n³o¤@ª`¤¤¤T¬P"+lotteryList2+"´¶¼ú NT$400","(¡Ã¡¾¡Ã)~* ", 1);}
-			         //lotteryList2¶}¼ú¸¹ÅÜ¤¤¼ú¸¹,©Ò¥H­n¦A½Æ»s¤@¦¸lotteryList¦^´_¦¨¶}¼ú¸¹
+			    	{JOptionPane.showMessageDialog(null, lines[j].toString()+"\né€™ä¸€æ³¨ä¸­ä¸‰æ˜Ÿ"+lotteryList2+"æ™®ç NT$400","(ï¿£â–½ï¿£)~* ", 1);}
+			         //lotteryList2é–‹çè™Ÿè®Šä¸­çè™Ÿ,æ‰€ä»¥è¦å†è¤‡è£½ä¸€æ¬¡lotteryListå›å¾©æˆé–‹çè™Ÿ
 			        lotteryList2 = new ArrayList<String>(lotteryList);
-			        //¦^´_¯S§O¸¹
+			        //å›å¾©ç‰¹åˆ¥è™Ÿ
 			        speList2 = new ArrayList<String>(speList);
 			        break;
 			    case 4:
 			    	if(speList2.size()!=0)
-			        {JOptionPane.showMessageDialog(null, lines[j].toString()+"\n³o¤@ª`¤¤¤T¬P©M¯S§O¸¹"+lotteryList2+"³°¼ú NT$1,000","¡Ù¡º¡Ø", 1);}
+			        {JOptionPane.showMessageDialog(null, lines[j].toString()+"\né€™ä¸€æ³¨ä¸­ä¸‰æ˜Ÿå’Œç‰¹åˆ¥è™Ÿ"+lotteryList2+"é™¸ç NT$1,000","â‰§â—‡â‰¦", 1);}
 			    	else
-			    	{JOptionPane.showMessageDialog(null, lines[j].toString()+"\n³o¤@ª`¤¤¥|¬P"+lotteryList2+"¥î¼ú NT$2,000","¡Ù¡º¡Ø", 1);}
-			         //lotteryList2¶}¼ú¸¹ÅÜ¤¤¼ú¸¹,©Ò¥H­n¦A½Æ»s¤@¦¸lotteryList¦^´_¦¨¶}¼ú¸¹
+			    	{JOptionPane.showMessageDialog(null, lines[j].toString()+"\né€™ä¸€æ³¨ä¸­å››æ˜Ÿ"+lotteryList2+"ä¼ç NT$2,000","â‰§â—‡â‰¦", 1);}
+			         //lotteryList2é–‹çè™Ÿè®Šä¸­çè™Ÿ,æ‰€ä»¥è¦å†è¤‡è£½ä¸€æ¬¡lotteryListå›å¾©æˆé–‹çè™Ÿ
 			        lotteryList2 = new ArrayList<String>(lotteryList);
-			        //¦^´_¯S§O¸¹
+			        //å›å¾©ç‰¹åˆ¥è™Ÿ
 			        speList2 = new ArrayList<String>(speList);
 			        break;
 			        
 			    case 5:
 			    	if(speList2.size()!=0)
-			        {JOptionPane.showMessageDialog(null, lines[j].toString()+"\n³o¤@ª`¤¤¥|¬P©M¯S§O¸¹"+lotteryList2+"¸v¼ú NT$15,742","(^_-)d", 2);}
+			        {JOptionPane.showMessageDialog(null, lines[j].toString()+"\né€™ä¸€æ³¨ä¸­å››æ˜Ÿå’Œç‰¹åˆ¥è™Ÿ"+lotteryList2+"è‚†ç NT$15,742","(^_-)d", 2);}
 			    	else
-			    	{JOptionPane.showMessageDialog(null, lines[j].toString()+"\n³o¤@ª`¤¤¤­¬P"+lotteryList2+"°Ñ¼ú NT$61,616","(^_-)d", 2);}
+			    	{JOptionPane.showMessageDialog(null, lines[j].toString()+"\né€™ä¸€æ³¨ä¸­äº”æ˜Ÿ"+lotteryList2+"åƒç NT$61,616","(^_-)d", 2);}
 			    case 6:
 			    	if(speList2.size()!=0)
-			        {JOptionPane.showMessageDialog(null, lines[j].toString()+"\n³o¤@ª`¤¤¤­¬P©M¯S§O¸¹"+lotteryList2+"¶L¼ú NT$3,041,419","*\\(^_^)/*", 2);}
+			        {JOptionPane.showMessageDialog(null, lines[j].toString()+"\né€™ä¸€æ³¨ä¸­äº”æ˜Ÿå’Œç‰¹åˆ¥è™Ÿ"+lotteryList2+"è²³ç NT$3,041,419","*\\(^_^)/*", 2);}
 			    	else
-			    	{JOptionPane.showMessageDialog(null, lines[j].toString()+"\n³o¤@ª`¤¤¤»¬P!!"+lotteryList2+"ÀY¼ú NT$38,368,681","¡E¡¹,:*:¡E\\(¡Ã¡¾¡Ã)/¡E:*¡E¢X¡¹*", 2);}
-			         //lotteryList2¶}¼ú¸¹ÅÜ¤¤¼ú¸¹,©Ò¥H­n¦A½Æ»s¤@¦¸lotteryList¦^´_¦¨¶}¼ú¸¹
+			    	{JOptionPane.showMessageDialog(null, lines[j].toString()+"\né€™ä¸€æ³¨ä¸­å…­æ˜Ÿ!!"+lotteryList2+"é ­ç NT$38,368,681","â€§â˜…,:*:â€§\\(ï¿£â–½ï¿£)/â€§:*â€§Â°â˜…*", 2);}
+			         //lotteryList2é–‹çè™Ÿè®Šä¸­çè™Ÿ,æ‰€ä»¥è¦å†è¤‡è£½ä¸€æ¬¡lotteryListå›å¾©æˆé–‹çè™Ÿ
 			        lotteryList2 = new ArrayList<String>(lotteryList);
-			        //¦^´_¯S§O¸¹
+			        //å›å¾©ç‰¹åˆ¥è™Ÿ
 			        speList2 = new ArrayList<String>(speList);
 			        break;
 				 }//swtich case end;
@@ -724,8 +724,8 @@ public class BigLottery extends JFrame {
                 if(lines>=2) {
 				try {
 					 
-					start= numsetText.getLineStartOffset(lines-2);//§R°£¦Cªº°_ÂI¼Æ­È
-					end = numsetText.getLineEndOffset(lines-2);//§R°£¦Cªº²×ÂI¼Æ­È
+					start= numsetText.getLineStartOffset(lines-2);//åˆªé™¤åˆ—çš„èµ·é»æ•¸å€¼
+					end = numsetText.getLineEndOffset(lines-2);//åˆªé™¤åˆ—çš„çµ‚é»æ•¸å€¼
 					numsetText.replaceRange("", start, end);
 					
 				} catch (BadLocationException e1) {
@@ -734,7 +734,7 @@ public class BigLottery extends JFrame {
 				}
                 }//if end
                 else
-                {JOptionPane.showMessageDialog(null, "±z©|¥¼¿ï¾Ü¸¹½X","³o¬O¨¾§b¸Ë¸m", 0);}
+                {JOptionPane.showMessageDialog(null, "æ‚¨å°šæœªé¸æ“‡è™Ÿç¢¼","é€™æ˜¯é˜²å‘†è£ç½®", 0);}
 				
 				
 				
