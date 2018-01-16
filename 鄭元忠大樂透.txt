@@ -1,0 +1,758 @@
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
+import java.util.*;
+import javax.swing.*;
+import javax.swing.text.BadLocationException;
+
+
+public class BigLottery extends JFrame {
+
+	private  JFrame frame;
+	JLabel [] selectedNumLbl;
+	JLabel [] lotteryNum;
+
+	JButton [] numBtn;
+	Set<Integer> set = new HashSet<Integer>();
+	Set<Integer> set2 = new TreeSet<Integer>();
+	Set<Integer> userSet = new TreeSet<Integer>();
+	Set<Integer> lotteryset = new HashSet<Integer>();
+	Set<Integer> lotteryset2 = new TreeSet<Integer>();
+	JTextArea numsetText; 
+	public BigLottery() {
+		initialize();
+	}
+
+
+	public void initialize() {
+		frame = new JFrame("大樂透");
+		frame.setBounds(500, 200, 600, 800);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//frame.getContentPane().setLayout(new BorderLayout());
+		JLabel lblNewLabel = new JLabel("請選擇六個號碼");
+		lblNewLabel.setFont(new Font("微軟正黑體", Font.PLAIN, 15));
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		frame.getContentPane().add(lblNewLabel,BorderLayout.NORTH);
+		
+		JPanel numPanel = new JPanel();
+		//numPanel.setPreferredSize(new Dimension(5, 5));
+		numPanel.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		numPanel.setMaximumSize(new Dimension(500, 100));
+		frame.getContentPane().add(numPanel,BorderLayout.CENTER);
+		numPanel.setLayout(new GridLayout(7, 7, 2, 2));
+		
+		//數字按鈕;
+        
+		 numBtn = new JButton[49];
+		 
+		 for(int i = 0; i < 49; i++){
+			 if (i<9) {
+				 numBtn[i] = new JButton( "0" + (i+1) ); 
+				 numBtn[i].addActionListener(new userPickListener());
+			 }
+			 else {
+				 numBtn[i] = new JButton( "" + (i+1) );  
+				 numBtn[i].addActionListener(new userPickListener());
+				 
+				 
+			 }
+			 
+			 numBtn[i].setPreferredSize(new Dimension(20,10));
+			 numBtn[i].setBackground(new Color(220 ,220 ,220));
+			 numBtn[i].setFont(new Font("Consolas", Font.PLAIN, 15));
+			 //button[i].addActionListener(new buttonListenerPickNum());
+			 numPanel.add(numBtn[i]) ;
+			 
+		 }
+	    /*選號區*/
+		JPanel selectedPane = new JPanel();
+		//功能鍵設定
+		JLabel selectedLabel = new JLabel("已選號碼");
+		selectedLabel.setPreferredSize(new Dimension(100,30));
+		selectedLabel.setFont(new Font("PROGGY", Font.PLAIN, 20));
+		/*-------------己選號碼區---------------*/
+		selectedNumLbl = new JLabel[7];
+		frame.getContentPane().add(selectedPane,BorderLayout.SOUTH);
+		selectedPane.setLayout(new FlowLayout());
+		selectedPane.setPreferredSize(new Dimension(500,400));
+		selectedPane.add(selectedLabel);
+		for(int j = 0; j < 6; ++j){
+			selectedNumLbl[j] = new JLabel("");  
+			selectedNumLbl[j].setPreferredSize(new Dimension(50,30));
+			selectedPane.add(selectedNumLbl[j]) ;
+			selectedNumLbl[j].setBackground(new Color(211,211,211));
+			
+			selectedNumLbl[j].setOpaque(true);
+			
+		selectedPane.add(selectedNumLbl[j]);
+		selectedNumLbl[j].setFont(new Font("微軟正黑體", Font.PLAIN, 20));
+		
+		}
+		
+		
+		/*-------------下注區---------------*/
+		JPanel functionPane = new JPanel();
+		functionPane.setLayout(new FlowLayout());
+		JButton autoBtn = new JButton("電腦選號");
+		autoBtn.setPreferredSize(new Dimension(190,30));
+		autoBtn.setFont(new Font("微軟正黑體", Font.PLAIN, 20));
+		autoBtn.addActionListener(new autoListener());
+		
+		JButton addBtn = new JButton("確定加入");
+		addBtn.setPreferredSize(new Dimension(190,30));
+		addBtn.setFont(new Font("微軟正黑體", Font.PLAIN, 20));
+		addBtn.addActionListener(new appendNumsListener());
+		JButton cancelBtn = new JButton("取消重選");
+		cancelBtn.setPreferredSize(new Dimension(190,30));
+		cancelBtn.setFont(new Font("微軟正黑體", Font.PLAIN, 20));
+		cancelBtn.addActionListener(new cancelListener());
+		
+		selectedPane.add(functionPane);
+		functionPane.add(autoBtn);
+		functionPane.add(addBtn);
+		functionPane.add(cancelBtn);
+		
+		/*-------------開獎區---------------*/
+		JPanel lotteryPane = new JPanel();
+		lotteryPane.setLayout(new FlowLayout());
+	    JLabel lottoNumLbl = new JLabel("開獎號碼");
+		JButton lotteryBtn =new JButton("開獎");
+		lottoNumLbl.setFont(new Font("微軟正黑體", Font.PLAIN, 20));
+		lotteryBtn.setFont(new Font("微軟正黑體", Font.PLAIN, 30));
+		lotteryPane.add(lottoNumLbl);
+		
+		 lotteryNum = new JLabel [7];
+		selectedPane.add(lotteryPane);
+		for(int k = 0; k < 7; ++k){
+			lotteryNum[k] = new JLabel("");  
+			lotteryNum[k].setPreferredSize(new Dimension(50,30));
+			lotteryNum[k].setFont(new Font("微軟正黑體", Font.BOLD, 19));
+			lotteryNum[k].setBackground(new Color(211,211,211));
+			lotteryNum[k].setOpaque(true);
+			
+			lotteryPane.add(lotteryNum[k]) ;}
+		//特別號
+		lotteryPane.add(lotteryNum[6]);
+		
+		lotteryNum[6].setBackground(new Color(211,188,211));
+		
+		
+		lotteryPane.add(lotteryBtn);
+		lotteryBtn.addActionListener(new lotteryListener());
+		
+		/*-------------公告區---------------*/
+		JPanel announcePane =new JPanel();
+		numsetText=new JTextArea(9, 20);
+		
+		JScrollPane annouScrPane =new JScrollPane(numsetText);
+		numsetText.setEditable(false);
+		JTextArea seledTextArea=new JTextArea(" \n"+"己\n"+"選\n"+"號\n"+"碼\n"+"組\n");
+		seledTextArea.setBackground(new Color(211,211,211));
+		seledTextArea.setEditable(false);
+		seledTextArea.setFont(new Font("微軟正黑體", Font.LAYOUT_NO_LIMIT_CONTEXT, 19));
+		announcePane.setLayout(new FlowLayout());
+		announcePane.setBackground(new Color(211,211,211));
+		announcePane.setPreferredSize(new Dimension(600,200));
+		JTextArea announceText=new JTextArea(
+				"頭獎 :６個號碼完全相同者\n"+
+		        "貳獎 :任５個號碼＋特別號相同者\n"+
+		        "參獎:任５個號碼相同者\n"+
+		        "肆獎 :任４個號碼＋特別號相同者\n"+
+		        "伍獎 :任４個號碼相同者\n"+
+		        "陸獎 :任３個號碼＋特別號相同者\n"+
+		        "柒獎 :任２個號碼＋特別號相同者\n"+
+		        "普獎 :任3個號碼相同者\n"
+				);
+		announceText.setBackground(Color.white);
+		announceText.setFont(new Font("微軟正黑體", Font.LAYOUT_NO_LIMIT_CONTEXT, 15));
+		announceText.setWrapStyleWord(true);
+		announceText.setEditable(false);
+		selectedPane.add(announcePane);
+		announcePane.add(announceText);
+		
+		announcePane.add(seledTextArea);	
+		
+		numsetText.setBackground(Color.white);
+		numsetText.setFont(new Font("微軟正黑體", Font.ITALIC, 15));
+		announcePane.add(annouScrPane);
+		//annouScrPane.add(numsetText);
+			
+		/*-------------對獎區---------------*/
+		JPanel checkPane = new JPanel();  
+		checkPane.setLayout(new FlowLayout());
+		checkPane.setBackground(new Color(180,180,180)); 
+		selectedPane.add(checkPane);
+		checkPane.setPreferredSize(new Dimension(600,200));
+		
+		JButton delBtn = new JButton("刪除一組");
+		delBtn.setPreferredSize(new Dimension(190,30));
+		delBtn.setFont(new Font("微軟正黑體", Font.PLAIN, 20));		
+		delBtn.addActionListener(new lineCancelListener());
+		
+		JButton delABtn = new JButton("全部刪除");
+		delABtn.setPreferredSize(new Dimension(190,30));
+		delABtn.setFont(new Font("微軟正黑體", Font.PLAIN, 20));
+		delABtn.addActionListener(new allCancelListener());
+		
+		JButton checkBtn = new JButton("對獎");
+		checkBtn.setPreferredSize(new Dimension(190,30));
+		checkBtn.setFont(new Font("微軟正黑體", Font.PLAIN, 20));
+		checkBtn.addActionListener(new checkListener());
+		
+		checkPane.add(delBtn);
+		checkPane.add(delABtn);
+		checkPane.add(checkBtn);
+				
+		 }  //initiate end
+		 
+	
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					BigLottery window = new BigLottery();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			
+			
+		});
+		
+	}//main end
+
+	class userPickListener extends JButton implements ActionListener{
+		
+		  @Override
+		public void actionPerformed(ActionEvent e){
+			  
+			  Color initialBackground = new Color(220 ,220 ,220);
+			  Color changedBackground = new Color(84 ,255 ,159);
+			  
+			  if (selectedNumLbl[5].getText()=="") {
+
+			   String s1 = selectedNumLbl[0].getText();
+			   String s2 = selectedNumLbl[1].getText();
+			   String s3 = selectedNumLbl[2].getText();
+			   String s4 = selectedNumLbl[3].getText();
+			   String s5 = selectedNumLbl[4].getText();
+			   String s6 = selectedNumLbl[5].getText();
+			  for(int j=0;j<49;j++)
+				  if (e.getSource() == numBtn[j])
+				    { 
+					  userSet.add(Integer.parseInt((numBtn[j].getText())));
+				    }
+
+			  Integer []dsf = new Integer[6];
+			  Integer []abc = new Integer[6];
+			  userSet.toArray(dsf);
+			      for(int k=0;k<6;k++) {
+			    	  if(dsf[k]!=null)
+				  selectedNumLbl[k].setText(new DecimalFormat("00").format(dsf[k])+" ");
+			    		  
+			      }
+			      
+				  for(int i=0;i<49;i++) {
+					  if (e.getSource() == numBtn[i])
+					    {     if(numBtn[i].getBackground().equals(initialBackground))
+						 
+							  {numBtn[i].setBackground(changedBackground);}
+					         
+					          else 
+					          {
+					        	  numBtn[i].setBackground(initialBackground);
+					        	  userSet.remove(Integer.parseInt((numBtn[i].getText())));
+					        	  userSet.toArray(abc);
+					        	  
+					        	  for(int m=0;m<6;m++) {
+					        	  int flag;
+					        	  String nBtn = String.valueOf(numBtn[i].getText());
+					        	  String sLbl = String.valueOf(selectedNumLbl[m].getText());
+					        	  flag=sLbl.compareTo(nBtn+" ");					        	
+					        	  if(flag== 0)
+                                  selectedNumLbl[m].setText(" ");}
+					          }
+					    }
+				  }
+			  }//if (selectedNumLbl[5].getText()=="") end
+			  else 
+			  {
+				  JOptionPane.showMessageDialog(null, "已經選六個號碼了","(⊙ˍ⊙)",0);
+			  }
+		  }//actionPerformed end
+		 }//ActionListener End
+	
+	class autoListener extends JComponent implements ActionListener{
+		
+		  @Override
+		public void actionPerformed(ActionEvent e){
+			  
+			  //int randFlash;
+			  int randNum ;
+			  set.clear();
+			  set2.clear();
+			  Thread one = new Thread() {
+				   int randNum;
+				    public void run() {
+				        try {
+				        	for(int c=0;c<10;c++) {
+				        	randNum = new Random().nextInt(49);
+				        	numBtn[randNum].setBackground(new Color(0 ,255 ,127));
+
+				            Thread.sleep(100);
+
+				            numBtn[randNum].setBackground(new Color(220 ,220 ,220));
+				            
+				        	}//for end
+				        	
+				        } catch(InterruptedException v) {
+				            System.out.println(v);
+				        }
+				    }  
+				};//Thread one end
+				one.start();
+				Thread two = new Thread() {
+					   int randNum;
+					    public void run() {
+					        try {
+					        	//Thread.sleep(10);
+					        	for(int d=0;d<10;d++) {
+					        		randNum = new Random().nextInt(49);
+					        	numBtn[randNum].setBackground(new Color(0 ,255 ,127));
+
+					            Thread.sleep(100);
+
+					            numBtn[randNum].setBackground(new Color(220 ,220 ,220));
+					            
+					        	}//for end
+					        	
+					        } catch(InterruptedException v) {
+					            System.out.println(v);
+					        }
+					    }  
+					};//Thread one end
+					two.start();
+					
+					Thread three = new Thread() {
+						   int randNum;
+						    public void run() {
+						        try {
+						        	//Thread.sleep(10);
+						        	for(int d=0;d<10;d++) {
+						        		randNum = new Random().nextInt(49);
+						        	numBtn[randNum].setBackground(new Color(0 ,255 ,127));
+
+						            Thread.sleep(100);
+
+						            numBtn[randNum].setBackground(new Color(220 ,220 ,220));
+						            
+						        	}//for end
+						        	
+						        } catch(InterruptedException v) {
+						            System.out.println(v);
+						        }
+						    }  
+						};//Thread one end
+						three.start();
+						
+						Thread four = new Thread() {
+							   int randNum;
+							    public void run() {
+							        try {
+							        	//Thread.sleep(10);
+							        	for(int d=0;d<10;d++) {
+							        		randNum = new Random().nextInt(49);
+							        	numBtn[randNum].setBackground(new Color(0 ,255 ,127));
+
+							            Thread.sleep(100);
+
+							            numBtn[randNum].setBackground(new Color(220 ,220 ,220));
+							            
+							        	}//for end
+							        	
+							        } catch(InterruptedException v) {
+							            System.out.println(v);
+							        }
+							    }  
+							};//Thread four end
+							four.start();
+
+							Thread autoThread = new Thread() {
+								   int randNum;
+								    public void run() {
+								        try {
+											Thread.sleep(1100);										  
+											for(int m=0;m<49;m++) {
+												  numBtn[m].setBackground(new Color(220 ,220 ,220));
+												  }//for end
+												  Integer[] numPrint = new Integer[set2.size()];
+												  //產生六個亂數
+												  do {	   				   
+													randNum = new Random().nextInt(49)+1;
+											        set.add(randNum);
+												  
+												    }while (set.size() != 6);
+												  set2.addAll(set);
+												  numPrint = set2.toArray(numPrint);// do while end
+												  
+												  //填入電腦選號數字;第六個號碼要加空白鍵
+												  for(int k=0;k<6;k++) {
+													  //個位數字補0
+													  if (numPrint[k]<10)
+													  selectedNumLbl[k].setText("0"+numPrint[k]+" ");
+													  else {
+														  selectedNumLbl[k].setText("" + numPrint[k] +" " ) ; 		  
+													  }
+													  //改變按鈕顏色顯示電腦選號		  
+													  numBtn[numPrint[k]-1].setBackground(new Color(0 ,255 ,127));
+													  
+												    }//for end
+
+										} catch (InterruptedException e) {
+											// TODO Auto-generated catch block
+											e.printStackTrace();
+										}
+								    }  
+								};//autoThread four end
+								autoThread.start();
+
+			  
+			  }	//actionPerformed end		  			  
+		  } //actionListener end
+	
+	class appendNumsListener extends JButton implements ActionListener{
+		  @Override
+		public void actionPerformed(ActionEvent e){
+			  if(selectedNumLbl[5].getText()!="")
+			  {  set.clear();
+			  set2.clear();
+			  userSet.clear();
+
+		    numsetText.append(selectedNumLbl[0].getText().toString()+"  ");
+		    numsetText.append(selectedNumLbl[1].getText().toString()+"  ");
+		    numsetText.append(selectedNumLbl[2].getText().toString()+"  ");
+		    numsetText.append(selectedNumLbl[3].getText().toString()+"  ");
+		    numsetText.append(selectedNumLbl[4].getText().toString()+"  ");
+		    numsetText.append(selectedNumLbl[5].getText().toString()+"\n");
+		    
+		    numsetText.setFont(new Font("微軟正黑體", Font.BOLD, 15));
+		    for(int i=0;i<6;i++) {
+		    selectedNumLbl[i].setText("");
+		    }
+		    for(int j=0;j<49;j++) {
+		    	numBtn[j].setBackground(new Color(220 ,220 ,220));
+		    }
+		   }//if end
+			  else {JOptionPane.showMessageDialog(null, "請選擇六個號碼","╮(╯◇╰)╭", 0);}
+		  }//actionPerformed end
+		 }//ActionListener End
+	
+	class lotteryListener  extends JButton implements ActionListener{
+		  @Override
+		public void actionPerformed(ActionEvent e){
+			  
+			  
+			  set.clear();
+			  set2.clear();
+			  Thread one = new Thread() {
+				   int randNum;
+				    public void run() {
+				        try {
+				        	for(int c=0;c<20;c++) {
+				        	randNum = new Random().nextInt(49);
+				        	numBtn[randNum].setBackground(new Color(255 ,106 ,106));
+
+				            Thread.sleep(100);
+
+				            numBtn[randNum].setBackground(new Color(220 ,220 ,220));
+				            
+				        	}//for end
+				        	
+				        } catch(InterruptedException v) {
+				            System.out.println(v);
+				        }
+				    }  
+				};//Thread one end
+				one.start();
+				Thread two = new Thread() {
+					   int randNum;
+					    public void run() {
+					        try {
+					        	//Thread.sleep(10);
+					        	for(int d=0;d<20;d++) {
+					        		randNum = new Random().nextInt(49);
+					        	numBtn[randNum].setBackground(new Color(255 ,106 ,106));
+
+					            Thread.sleep(100);
+
+					            numBtn[randNum].setBackground(new Color(220 ,220 ,220));
+					            
+					        	}//for end
+					        	
+					        } catch(InterruptedException v) {
+					            System.out.println(v);
+					        }
+					    }  
+					};//Thread one end
+					two.start();
+					
+					Thread three = new Thread() {
+						   int randNum;
+						    public void run() {
+						        try {
+						        	//Thread.sleep(10);
+						        	for(int d=0;d<20;d++) {
+						        		randNum = new Random().nextInt(49);
+						        	numBtn[randNum].setBackground(new Color(255 ,106 ,106));
+
+						            Thread.sleep(100);
+
+						            numBtn[randNum].setBackground(new Color(220 ,220 ,220));
+						            
+						        	}//for end
+						        	
+						        } catch(InterruptedException v) {
+						            System.out.println(v);
+						        }
+						    }  
+						};//Thread one end
+						three.start();
+						Thread four = new Thread() {
+							   int randNum;
+							    public void run() {
+							        try {
+							        	//Thread.sleep(10);
+							        	for(int d=0;d<20;d++) {
+							        		randNum = new Random().nextInt(49);
+							        	numBtn[randNum].setBackground(new Color(255 ,106 ,106));
+
+							            Thread.sleep(100);
+
+							            numBtn[randNum].setBackground(new Color(220 ,220 ,220));
+							            
+							        	}//for end
+							        	
+							        } catch(InterruptedException v) {
+							            System.out.println(v);
+							        }
+							    }  
+							};//Thread one end
+							four.start();
+						
+				
+				
+				Thread lottoThread = new Thread() {
+					int randLottoNum ;
+				    public void run() {
+				        try {
+				        	
+
+				            Thread.sleep(2100);
+
+				            for(int m=0;m<49;m++) {
+				  			  numBtn[m].setBackground(new Color(220 ,220 ,220));
+				  			  }
+				  			  Integer[] numPrint = new Integer[set2.size()];
+				  			  //產生七個亂數
+				  			  do {	   				   
+				  				randLottoNum = new Random().nextInt(49)+1;
+				                  set.add(randLottoNum);
+				  			  
+				  			    }while (set.size() != 7);
+				  			  //set2.addAll(set);
+				  			  numPrint = set.toArray(numPrint);
+				  			  
+				  			  //填入電腦選號數字
+				  			  for(int k=0;k<7;k++) {
+				  				  //個位數字補0
+				  				  if (numPrint[k]<10)
+				  					  
+				  				      lotteryNum[k].setText("0"+numPrint[k]);
+				  				  else {
+				  					  lotteryNum[k].setText("" + numPrint[k]  ) ; 		  
+				  				  }
+				  				  //改變按鈕顏色顯示電腦選號		  
+				  				  numBtn[numPrint[k]-1].setBackground(new Color(255 ,106 ,106));
+				  				  numBtn[numPrint[6]-1].setBackground(new Color(255 ,130 ,71));
+				  			    }//for end
+				        } catch(InterruptedException v) {
+				            System.out.println(v);
+				        }
+				    }  
+				};//Thread two end
+				lottoThread.start();
+			  
+			 
+				  		  
+				
+			  }	//actionPerformed end		  			  
+		  } //lotteryListener end 
+
+	class checkListener extends JButton implements ActionListener {
+		  @Override
+		public void actionPerformed(ActionEvent e) {
+		         
+			    ArrayList<String> lotteryList = new ArrayList<String>();
+			    
+			    String[] lines = numsetText.getText().split("\n");//逐行讀取textarea
+			    String[] pickedNumList= new String[6];
+			    int starNum ;
+		        for(int i=0;i<7;i++) {//載入開獎號
+				    lotteryList.add(lotteryNum[i].getText().toString());
+				    }
+		        //複製開獎號
+		        ArrayList<String> lotteryList2 = new ArrayList<String>(lotteryList);
+		        //特別號arraylist
+		        ArrayList<String> speList = new ArrayList<String>();
+		        //載入特別號
+		        speList.add(lotteryList.toArray()[6].toString());
+		        //複製特別號
+		        ArrayList<String> speList2 = new ArrayList<String>(speList);
+                //將已選號碼加入Array pickedNumList
+		        int betNum=numsetText.getLineCount();
+			    for(int j=0;j<betNum-1;j++) {
+			    	//載入自選號碼
+			    	pickedNumList=lines[j].toString().split(" ");
+			    
+			    				    			   
+				//複製開獎號,自選號,取交集	    			    	    
+			    lotteryList2.retainAll(Arrays.asList(pickedNumList));	
+			    //特別號,自選號,取交集	
+			    speList2.retainAll(Arrays.asList(pickedNumList));
+			    //算中的顆數
+			    starNum=lotteryList2.size();
+			    //判斷是否有特別號並提示訊息
+			    
+			    switch(starNum)
+			    {case 0:
+		        JOptionPane.showMessageDialog(null, lines[j].toString()+"\n這一注沒中","╭(﹊∩∩﹊)╮", 0);
+		         //lotteryList2開獎號變中獎號,所以要再複製一次lotteryList回復成開獎號
+		        lotteryList2 = new ArrayList<String>(lotteryList);
+		        //回復特別號
+		        speList2 = new ArrayList<String>(speList);
+		        break;
+			    
+			    case 1:
+			    	if(speList2.size()!=0)
+			        {JOptionPane.showMessageDialog(null, lines[j].toString()+"\n這一注中特別號"+speList2+"沒有獎金","＝ ＝+", 0);}
+			    	else
+			    	{JOptionPane.showMessageDialog(null, lines[j].toString()+"\n這一注中一星"+lotteryList2+"沒有獎金","＝ ＝+", 0);}
+			         //lotteryList2開獎號變中獎號,所以要再複製一次lotteryList回復成開獎號
+			        lotteryList2 = new ArrayList<String>(lotteryList);
+			        //回復特別號
+			        speList2 = new ArrayList<String>(speList);
+			        break;
+			     
+			    case 2:
+			    	if(speList2.size()!=0)
+			        {JOptionPane.showMessageDialog(null, lines[j].toString()+"\n這一注中一星和特別號"+lotteryList2+"沒有獎金","╰（‵□′）╯", 0);}
+			    	else
+			    	{JOptionPane.showMessageDialog(null, lines[j].toString()+"\n這一注中二星"+lotteryList2+"沒有獎金","╰（‵□′）╯", 0);}
+			         //lotteryList2開獎號變中獎號,所以要再複製一次lotteryList回復成開獎號
+			        lotteryList2 = new ArrayList<String>(lotteryList);
+			        //回復特別號
+			        speList2 = new ArrayList<String>(speList);
+			        break;
+			    case 3:
+			    	if(speList2.size()!=0)
+			        {JOptionPane.showMessageDialog(null, lines[j].toString()+"\n這一注中二星和特別號"+lotteryList2+"柒獎 NT$400","(￣▽￣)~* ", 1);}
+			    	else
+			    	{JOptionPane.showMessageDialog(null, lines[j].toString()+"\n這一注中三星"+lotteryList2+"普獎 NT$400","(￣▽￣)~* ", 1);}
+			         //lotteryList2開獎號變中獎號,所以要再複製一次lotteryList回復成開獎號
+			        lotteryList2 = new ArrayList<String>(lotteryList);
+			        //回復特別號
+			        speList2 = new ArrayList<String>(speList);
+			        break;
+			    case 4:
+			    	if(speList2.size()!=0)
+			        {JOptionPane.showMessageDialog(null, lines[j].toString()+"\n這一注中三星和特別號"+lotteryList2+"陸獎 NT$1,000","≧◇≦", 1);}
+			    	else
+			    	{JOptionPane.showMessageDialog(null, lines[j].toString()+"\n這一注中四星"+lotteryList2+"伍獎 NT$2,000","≧◇≦", 1);}
+			         //lotteryList2開獎號變中獎號,所以要再複製一次lotteryList回復成開獎號
+			        lotteryList2 = new ArrayList<String>(lotteryList);
+			        //回復特別號
+			        speList2 = new ArrayList<String>(speList);
+			        break;
+			        
+			    case 5:
+			    	if(speList2.size()!=0)
+			        {JOptionPane.showMessageDialog(null, lines[j].toString()+"\n這一注中四星和特別號"+lotteryList2+"肆獎 NT$15,742","(^_-)d", 2);}
+			    	else
+			    	{JOptionPane.showMessageDialog(null, lines[j].toString()+"\n這一注中五星"+lotteryList2+"參獎 NT$61,616","(^_-)d", 2);}
+			    case 6:
+			    	if(speList2.size()!=0)
+			        {JOptionPane.showMessageDialog(null, lines[j].toString()+"\n這一注中五星和特別號"+lotteryList2+"貳獎 NT$3,041,419","*\\(^_^)/*", 2);}
+			    	else
+			    	{JOptionPane.showMessageDialog(null, lines[j].toString()+"\n這一注中六星!!"+lotteryList2+"頭獎 NT$38,368,681","‧★,:*:‧\\(￣▽￣)/‧:*‧°★*", 2);}
+			         //lotteryList2開獎號變中獎號,所以要再複製一次lotteryList回復成開獎號
+			        lotteryList2 = new ArrayList<String>(lotteryList);
+			        //回復特別號
+			        speList2 = new ArrayList<String>(speList);
+			        break;
+				 }//swtich case end;
+			    
+			    }//for j<numsetText.getLineCount()-1 end
+			  
+		  }//actionPerformed End
+		 }//ActionListener End
+	class cancelListener extends JButton implements ActionListener{
+		
+		  @Override
+		public void actionPerformed(ActionEvent e){
+			  set.clear();
+			  set2.clear();
+			  userSet.clear();
+              for(int i=0;i<6;i++) {
+              selectedNumLbl[i].setText("");}
+              for(int j=0;j<49;j++) {
+            	  numBtn[j].setBackground(new Color(220 ,220 ,220));
+            	  }
+			      
+		  }//actionPerformed end
+		 }//ActionListener End
+    
+	class lineCancelListener extends JButton implements ActionListener{
+		
+		  @Override
+		public void actionPerformed(ActionEvent e){
+			    int lines = numsetText.getLineCount();
+			    int start;
+                int end;
+                if(lines>=2) {
+				try {
+					 
+					start= numsetText.getLineStartOffset(lines-2);//刪除列的起點數值
+					end = numsetText.getLineEndOffset(lines-2);//刪除列的終點數值
+					numsetText.replaceRange("", start, end);
+					
+				} catch (BadLocationException e1) {
+					
+					e1.printStackTrace();
+				}
+                }//if end
+                else
+                {JOptionPane.showMessageDialog(null, "您尚未選擇號碼","這是防呆裝置", 0);}
+				
+				
+				
+			
+			      
+		  }//actionPerformed end
+		 }//ActionListener End
+	class allCancelListener extends JButton implements ActionListener{
+		
+		  @Override
+		public void actionPerformed(ActionEvent e){
+			numsetText.setText("");
+			      
+		  }//actionPerformed end
+		 }//ActionListener End
+}//BigLottery end;
+	
+    
+
+
+
